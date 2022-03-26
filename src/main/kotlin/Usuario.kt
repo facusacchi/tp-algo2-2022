@@ -5,25 +5,20 @@ import java.time.temporal.ChronoUnit
 import java.util.*
 
 class Usuario(
-    nombre: String = "",
-    apellido: String = "",
-    userName: String = "",
-    fechaAlta: LocalDate = LocalDate.now(),
-    antiguedad: Int = 0,
-    pais: String = ""
+    var nombre: String,
+    var apellido: String,
+    var userName: String,
+    var pais: String,
+    var fechaAlta: LocalDate = LocalDate.now()
 ) {
-    var nombre: String = ""
-    var apellido: String = ""
-    var userName: String = ""
-    var fechaAlta: LocalDate = LocalDate.of(1,1,1)
-    var antiguedad: Int = 0
-    var pais: String = ""
+
+
 
     companion object {
         var ANTIGUEDAD_MAX = 15
     }
 
-    private fun calcularAntiguedad(): Int {
+    fun calcularAntiguedad(): Int {
         return minOf(ChronoUnit.YEARS.between(fechaAlta, LocalDate.now()).toInt(), ANTIGUEDAD_MAX)
     }
 
@@ -32,7 +27,7 @@ class Usuario(
     }
 
     fun getFactorDeDescuento(): BigDecimal {
-        return BigDecimal(0.1) * BigDecimal(calcularAntiguedad()) + BigDecimal(1)
+        return BigDecimal("0.01") * BigDecimal(calcularAntiguedad())
     }
 
     fun crear(itinerario: Itinerario) {

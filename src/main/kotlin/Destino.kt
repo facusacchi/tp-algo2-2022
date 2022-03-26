@@ -1,18 +1,14 @@
 import java.math.BigDecimal
 
 class Destino(
-    pais: String,
-    ciudad: String,
-    costoBase: BigDecimal
+    var pais: String,
+    var ciudad: String,
+    var costoBase: BigDecimal
 ) {
 
     companion object {
         var LOCALIA = "Argentina"
     }
-
-    var pais = "";
-    var ciudad = "";
-    var costoBase = BigDecimal(0.0);
 
     fun esLocal(): Boolean {
         return pais.equals(LOCALIA, ignoreCase = true)
@@ -20,18 +16,16 @@ class Destino(
 
     fun getCosto(usuario: Usuario): BigDecimal {
         var costo = validarAumento();
-        costo = validarDescuento(costo, usuario)
-
-        return costo;
+        return validarDescuento(costo, usuario)
     }
 
     fun esDelMismoPaisQueUsuario(usuario: Usuario): Boolean {
-        return pais == usuario.pais
+        return pais.equals(usuario.pais, ignoreCase = true)
     }
 
     fun validarAumento(): BigDecimal {
         if(!esLocal()) {
-            return costoBase * BigDecimal(1.2);
+            return costoBase * BigDecimal("1.2");
         }
         return costoBase
     }
